@@ -58,17 +58,8 @@ class Background {
         }
     }
     
-    func setImageName(post: [String: AnyObject], image: NSData) {
-        var id = ""
-        if let _id = post["subreddit_id"] as? String {
-            id += "\(_id)_"
-        }
-        if let _id = post["id"] as? String {
-            id += "\(_id)_"
-        }
-        if let _id = post["created"] as? Int {
-            id += String(_id)
-        }
+    func setImageName(post: RedditPost, image: NSData) {
+        var id = "\(post.subreddit_id)_\(post.id)_\(String(post.created))"
         
         var c = UInt8();
         image.getBytes(&c, length: 1)
@@ -86,6 +77,7 @@ class Background {
                 id += ".tiff" //return @"image/tiff";
                 break
             default:
+                id += ".jpg" //return @"image/jpeg";
                 break
         }
         
@@ -107,26 +99,22 @@ class Background {
         sqlite3_close(db)
     }
     
-    func set(post: [String : AnyObject]) {
+    func set(post: RedditPost) {
         removeCurrentImage()
         
-        if let url = post["url"] as? String {
-            let cmp = NSURLComponents(string: url.stringByReplacingOccurrencesOfString("&amp;", withString: "&"))
-            cmp!.scheme = "https"
-            print("\(url)  #  \(cmp?.URL)")
-            
-            var image = NSData(contentsOfURL: (cmp?.URL)!)
-            
-            if image == nil {
-                cmp!.scheme = "http"
-                image = NSData(contentsOfURL: (cmp?.URL)!)
-            }
-            
-            setImageName(post, image: image!)
-            save(image!)
-        } else {
-            print("did not find url")
+        let cmp = NSURLComponents(string: post.source)
+        cmp!.scheme = "https"
+        print("\(post.source)  #  \(cmp?.URL)")
+        
+        var image = NSData(contentsOfURL: (cmp?.URL)!)
+        
+        if image == nil {
+            cmp!.scheme = "http"
+            image = NSData(contentsOfURL: (cmp?.URL)!)
         }
+        
+        setImageName(post, image: image!)
+        save(image!)
         
         saveToDB()
     }

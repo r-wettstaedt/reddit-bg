@@ -96,7 +96,7 @@ class ViewController: NSViewController, SubredditManagerViewControllerDelegate {
         rf.fetch(subreddits: self.sm.subreddits, callback: {(post: [String:AnyObject]?) -> () in
             if let _ = post {
                 self.pp.render()
-                self.bg.set(post!)
+                self.bg.set(self.post)
                 self.startTimer()
                 self.nc.scheduleNotification(subrredit: self.post.subreddit, previewImage: self.pp._image.image!, id: self.bg.currentImageName)
             }
