@@ -7,20 +7,16 @@
 //
 
 import Foundation
+import AppKit
 
 class Background {
     var supportPath: String
-    var dbPath: String
     var currentImageName: String
     
     init () {
-        var paths = NSSearchPathForDirectoriesInDomains(.ApplicationSupportDirectory, .AllDomainsMask, true)
-        var applicationSupportDirectory = paths.first! as NSString!
+        let paths = NSSearchPathForDirectoriesInDomains(.ApplicationSupportDirectory, .AllDomainsMask, true)
+        let applicationSupportDirectory = paths.first! as NSString!
         self.supportPath = applicationSupportDirectory.stringByAppendingPathComponent("Reddit-BG") + "/"
-        
-        paths = NSSearchPathForDirectoriesInDomains(.ApplicationSupportDirectory, .UserDomainMask, true)
-        applicationSupportDirectory = paths.first! as NSString!
-        self.dbPath = applicationSupportDirectory.stringByAppendingPathComponent("Dock/desktoppicture.db")
         
         self.currentImageName = ""
     }
@@ -91,44 +87,44 @@ class Background {
         
         self.currentImageName = id
     }
-    
-    func saveToDB() {
-        var db: COpaquePointer = nil
-        if sqlite3_open(dbPath, &db) == SQLITE_OK  && sqlite3_exec(db, "DELETE FROM data;", nil, nil, nil) == SQLITE_OK {
-            for _ in 0...10 {
-                sqlite3_exec(db, "INSERT INTO data ('value') VALUES ('\(self.supportPath)\(self.currentImageName)');", nil, nil, nil)
-            }
-            system("/usr/bin/killall Dock")
-        }
         
-        let err = String.fromCString(sqlite3_errstr(sqlite3_errcode(db)))
-        print(err!)
-        
-        sqlite3_close(db)
-    }
-    
     func set(post: [String : AnyObject]) {
-        removeCurrentImage()
-        
         if let url = post["url"] as? String {
-            let cmp = NSURLComponents(string: url.stringByReplacingOccurrencesOfString("&amp;", withString: "&"))
-            cmp!.scheme = "https"
-            print("\(url)  #  \(cmp?.URL)")
+					
+					let cmp = NSURLComponents(string: url.stringByReplacingOccurrencesOfString("&amp;", withString: "&"))
+					cmp!.scheme = "https"
+					print("\(url)  #  \(cmp?.URL)")
+					
+					var image = NSData(contentsOfURL: (cmp?.URL)!)
             
-            var image = NSData(contentsOfURL: (cmp?.URL)!)
-            
-            if image == nil {
-                cmp!.scheme = "http"
-                image = NSData(contentsOfURL: (cmp?.URL)!)
-            }
-            
-            setImageName(post, image: image!)
-            save(image!)
+					if image == nil {
+						cmp!.scheme = "http"
+						image = NSData(contentsOfURL: (cmp?.URL)!)
+					}
+						
+					removeCurrentImage()  
+					setImageName(post, image: image!)
+          save(image!)
+					updateDesktopWallpaper()
         } else {
-            print("did not find url")
+					print("did not find url")
         }
-        
-        saveToDB()
+     	
     }
+	
+	func updateDesktopWallpaper() {
+		do {
+			
+			let imgurl = NSURL.fileURLWithPath(self.supportPath + self.currentImageName)
+			
+			let workspace = NSWorkspace.sharedWorkspace()
+			if let screen = NSScreen.mainScreen()  {
+				try workspace.setDesktopImageURL(imgurl, forScreen: screen, options: [:])
+			}
+		} catch {
+			print(error)
+		}
+
+	}
  
 }

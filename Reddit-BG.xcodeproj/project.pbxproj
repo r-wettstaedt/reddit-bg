@@ -21,8 +21,6 @@
 		152ACF551D40EE7100919888 /* PopStatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152ACF541D40EE7100919888 /* PopStatusItem.swift */; };
 		152ACF5B1D40F81E00919888 /* RedditFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152ACF5A1D40F81E00919888 /* RedditFetcher.swift */; };
 		155B6DFE1D5353CF009F9B13 /* RedditPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155B6DFD1D5353CF009F9B13 /* RedditPost.swift */; };
-		156BA8E91D4FA8AC00303F3A /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 156BA8E81D4FA8AC00303F3A /* libsqlite3.tbd */; };
-		1576DCC71D4AB412008FCCBA /* Reddit-BG-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 1576DCC51D4AB3B5008FCCBA /* Reddit-BG-Bridging-Header.h */; };
 		15AB9CDC1D69B038009D44D7 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AB9CDA1D69B038009D44D7 /* PreferencesViewController.swift */; };
 		15AB9CDD1D69B038009D44D7 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15AB9CDB1D69B038009D44D7 /* Preferences.xib */; };
 		15F315D21D4AA6BE0054FCBF /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F315D11D4AA6BE0054FCBF /* Background.swift */; };
@@ -66,8 +64,6 @@
 		152ACF541D40EE7100919888 /* PopStatusItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopStatusItem.swift; sourceTree = "<group>"; };
 		152ACF5A1D40F81E00919888 /* RedditFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedditFetcher.swift; sourceTree = "<group>"; };
 		155B6DFD1D5353CF009F9B13 /* RedditPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedditPost.swift; sourceTree = "<group>"; };
-		156BA8E81D4FA8AC00303F3A /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		1576DCC51D4AB3B5008FCCBA /* Reddit-BG-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Reddit-BG-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		15AB9CDA1D69B038009D44D7 /* PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		15AB9CDB1D69B038009D44D7 /* Preferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
 		15F315D11D4AA6BE0054FCBF /* Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
@@ -78,7 +74,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				156BA8E91D4FA8AC00303F3A /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,8 +97,6 @@
 		152ACF0F1D40EBC200919888 = {
 			isa = PBXGroup;
 			children = (
-				156BA8E81D4FA8AC00303F3A /* libsqlite3.tbd */,
-				1576DCC51D4AB3B5008FCCBA /* Reddit-BG-Bridging-Header.h */,
 				152ACF1A1D40EBC200919888 /* Reddit-BG */,
 				152ACF2C1D40EBC200919888 /* Reddit-BGTests */,
 				152ACF371D40EBC200919888 /* Reddit-BGUITests */,
@@ -169,7 +162,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1576DCC71D4AB412008FCCBA /* Reddit-BG-Bridging-Header.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,7 +448,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.r-wettstaedt.Reddit-BG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Reddit-BG-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -471,7 +462,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.r-wettstaedt.Reddit-BG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Reddit-BG-Bridging-Header.h";
 			};
 			name = Release;
 		};
