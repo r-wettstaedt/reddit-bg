@@ -23,6 +23,9 @@ class RedditPost {
     var created: Int
     var author: String
     var permalink: String
+    
+    var subreddit_id: String
+    var id: String
 
     init() {
         self.width = 0
@@ -38,6 +41,9 @@ class RedditPost {
         self.created = 0
         self.author = ""
         self.permalink = ""
+        
+        self.subreddit_id = ""
+        self.id = ""
     }
 
     func setWithPost(post: [String: AnyObject]) {
@@ -89,6 +95,14 @@ class RedditPost {
 
         if let permalink = post["permalink"] as? String {
             self.permalink = "https://reddit.com\(permalink)"
+        }
+        
+        if let subreddit_id = post["subreddit_id"] as? String {
+            self.subreddit_id = subreddit_id
+        }
+        
+        if let id = post["id"] as? String {
+            self.id = id
         }
     }
 
